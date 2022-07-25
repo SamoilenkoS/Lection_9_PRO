@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SeaBattle
@@ -15,6 +9,7 @@ namespace SeaBattle
         public SeaBattleMainForm()
         {
             InitializeComponent();
+            pictureBoxPlayerLeftZone.Invalidate();
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
@@ -24,24 +19,31 @@ namespace SeaBattle
 
         private void DrawGameBoard()
         {
-            var graphics = pictureBoxPlayerLeftZone.CreateGraphics();
-            graphics.Clear(Color.White);
             int size = 10;
             int cellWidth = pictureBoxPlayerLeftZone.Width / size;
             int cellHeight = pictureBoxPlayerLeftZone.Height / size;
             int boardWidth = size * cellWidth;
             int boardHeight = size * cellHeight;
             int shift = 1;
-            DrawBoard(
-                graphics,
-                size,
-                cellWidth,
-                cellHeight,
-                boardWidth,
-                boardHeight,
-                shift);
+            using (var bitmap = new Bitmap(pictureBoxPlayerLeftZone.Width, pictureBoxPlayerLeftZone.Height))
+            using (var graphics = Graphics.FromImage(bitmap))
+            using (var pen = new Pen(Color.White))
+            {
 
-            DrawCellsIndexes(graphics, size, cellWidth, cellHeight);
+                DrawBoard(
+                 graphics,
+                 size,
+                 cellWidth,
+                 cellHeight,
+                 boardWidth,
+                 boardHeight,
+                 shift);
+
+                DrawCellsIndexes(graphics, size, cellWidth, cellHeight);
+                // copy the bitmap to the picturebox (double buffered)
+                pictureBoxPlayerLeftZone.Image?.Dispose();
+                pictureBoxPlayerLeftZone.Image = (Bitmap)bitmap.Clone();
+            }
         }
 
         private static void DrawBoard(Graphics graphics, int size, int cellWidth, int cellHeight, int boardWidth, int boardHeight, int shift)
@@ -82,6 +84,11 @@ namespace SeaBattle
         private void SeaBattleMainForm_Paint(object sender, PaintEventArgs e)
         {
             buttonStart_Click(sender, e);
+        }
+
+        private void pictureBoxPlayerLeftZone_Paint(object sender, PaintEventArgs e)
+        {
+            DrawGameBoard();
         }
     }
 }

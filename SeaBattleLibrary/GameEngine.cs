@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SeaBattleLibrary
+﻿namespace SeaBattleLibrary
 {
     public class GameEngine
     {
@@ -23,22 +17,17 @@ namespace SeaBattleLibrary
         public bool PlaceShip(bool leftBoard,
             ShipPlacementDetails shipPlacementDetails)
         {
-            Board target = GetBoard(leftBoard);
+            Board targetBoard = GetBoard(leftBoard);
 
             bool result = false;
-            if (target.IsValidPlacement(shipPlacementDetails))
+            if (targetBoard.IsValidPlacement(shipPlacementDetails))
             {
-                Ship ship = GenerateShip(shipPlacementDetails);
-                target.PlaceShip(ship);
+
+                targetBoard.PlaceShip(shipPlacementDetails);
                 result = true;
             }
 
             return result;
-        }
-
-        private Ship GenerateShip(ShipPlacementDetails shipPlacementDetails)
-        {//TODO implement
-            throw new NotImplementedException();
         }
 
         private Board GetBoard(bool leftBoard)

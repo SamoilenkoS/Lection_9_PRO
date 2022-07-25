@@ -42,6 +42,7 @@ namespace SeaBattle
             this.pictureBoxPlayerLeftZone.Size = new System.Drawing.Size(417, 377);
             this.pictureBoxPlayerLeftZone.TabIndex = 0;
             this.pictureBoxPlayerLeftZone.TabStop = false;
+            this.pictureBoxPlayerLeftZone.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxPlayerLeftZone_Paint);
             // 
             // buttonStart
             // 
@@ -63,7 +64,6 @@ namespace SeaBattle
             this.Controls.Add(this.pictureBoxPlayerLeftZone);
             this.Name = "SeaBattleMainForm";
             this.Text = "SeaBattle";
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.SeaBattleMainForm_Paint);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPlayerLeftZone)).EndInit();
             this.ResumeLayout(false);
 

@@ -1,5 +1,4 @@
-﻿using System;
-using static SeaBattleLibrary.GameEngine;
+﻿using static SeaBattleLibrary.GameEngine;
 
 namespace SeaBattleLibrary
 {
@@ -18,6 +17,7 @@ namespace SeaBattleLibrary
                 }
             }
         }
+
         public Ship Ship { get; set; }
         public event PropertyValueChanged CellShooted;
     }

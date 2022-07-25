@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SeaBattleLibrary
 {
@@ -30,30 +27,19 @@ namespace SeaBattleLibrary
             }
         }
 
-        internal bool IsValidPlacement(//TODO add neighbours validation
-            ShipPlacementDetails shipPlacementDetails)
+        internal bool IsValidPlacement(ShipPlacementDetails shipPlacementDetails)
         {
-            int xShift = shipPlacementDetails.IsHorizontal ? 1 : 0;
-            int yShift = shipPlacementDetails.IsHorizontal ? 0 : 1;
-            bool result = true;
-            for (int i = 0; i < shipPlacementDetails.Size; i++)
-            {
-                if (Cells[shipPlacementDetails.PlacementCoordinate.X + xShift * i,
-                    shipPlacementDetails.PlacementCoordinate.Y + yShift * i].Ship
-                    != null)
-                {
-                    result = false;
-                    break;
-                }
-            }
+            var cells = Cells.GetShipCells(shipPlacementDetails);
 
-            return result;
-
+            return cells.All(x => x.Ship == null);
         }
 
-        internal void PlaceShip(Ship ship)//TODO implement
+        internal void PlaceShip(
+            ShipPlacementDetails shipPlacementDetails)
         {
-            throw new NotImplementedException();
+            var shipCells = Cells.GetShipCells(shipPlacementDetails);
+            var ship = new Ship(shipCells);
+            shipCells.Select(x => x.Ship = ship);
         }
 
         internal ShotResult Shoot(Point shotCell)
