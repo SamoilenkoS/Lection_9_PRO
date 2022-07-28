@@ -29,7 +29,17 @@ namespace SeaBattleLibrary
 
         internal bool IsValidPlacement(ShipPlacementDetails shipPlacementDetails)
         {
-            var cells = Cells.GetShipCells(shipPlacementDetails);
+            int xShift = shipPlacementDetails.IsHorizontal ? 1 : 0;
+            int yShift = shipPlacementDetails.IsHorizontal ? 0 : 1;
+            xShift *= shipPlacementDetails.Size;
+            yShift *= shipPlacementDetails.Size;
+            if((xShift + shipPlacementDetails.PlacementCoordinate.X) >= Size ||
+                (yShift + shipPlacementDetails.PlacementCoordinate.Y) >= Size)
+            {
+                return false;
+            }
+
+            var cells = Cells.GetShipAndNearestCells(shipPlacementDetails);
 
             return cells.All(x => x.Ship == null);
         }
@@ -39,7 +49,11 @@ namespace SeaBattleLibrary
         {
             var shipCells = Cells.GetShipCells(shipPlacementDetails);
             var ship = new Ship(shipCells);
-            shipCells.Select(x => x.Ship = ship);
+            foreach (var item in shipCells)
+            {
+                item.Ship = ship;
+            }
+            //shipCells.Select(x => x.Ship = ship);
         }
 
         internal ShotResult Shoot(Point shotCell)

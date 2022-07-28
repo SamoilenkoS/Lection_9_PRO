@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 
 namespace ConsoleDemo
 {
@@ -32,6 +33,13 @@ namespace ConsoleDemo
         public Student[] items { get; set; }
     }
 
+    public class TestData
+    {
+        public List<int> Items { get; set; }
+        public string FN { get; set; }
+        public DateTime Date { get; set; }
+    }
+
     class Program
     {
         public delegate int SomeMethod(int a, int b);
@@ -42,6 +50,24 @@ namespace ConsoleDemo
 
         static void Main(string[] args)
         {
+            var deserialized = JsonSerializer.Deserialize<TestData>
+                (
+                "{\"Items\":[5,9,4,8,6,6,0,2,3,7,6,2,7,2,1,0,7,2,2,4,8,2,3,5,1,2,4,8,5,0,0,5,5,0,4,1,1,4,6,8,6,6,1,7,4,3,6,0,2,2,7,9,3,9,0,3,5,9,7,4,1,1,6,3,7,0,6,6,7,9,9,2,5,4,8,1,1,6,0,8,5,3,6,3,2,0,2,5,9,1,6,1,7,1,6,4,0,7,0,4],\"FN\":\"asasdas sd q!\",\"Date\":\"2022-07-28T21:29:30.8418409+03:00\"}");
+            Random random = new Random();
+            List<int> items = new List<int>();
+            for (int i = 0; i < 100; i++)
+            {
+                items.Add(random.Next(10));
+            }
+
+            var data = new TestData
+            {
+                Items = items,
+                Date = DateTime.Now,
+                FN = "asasdas sd q!"
+            };
+
+            var serialized = JsonSerializer.Serialize(data);
             //HashSet<int> items = new HashSet<int>();
             //for (int i = 0; i < 10; i++)
             //{

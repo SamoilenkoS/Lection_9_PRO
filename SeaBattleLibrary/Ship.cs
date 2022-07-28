@@ -26,7 +26,8 @@ namespace SeaBattleLibrary
             }
         }
 
-        public Cell[] ShipCells { get; }
+        [NonSerialized]
+        public Cell[] ShipCells;
 
         public event PropertyValueChanged ShipDied;
 

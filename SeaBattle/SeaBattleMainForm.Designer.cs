@@ -31,7 +31,10 @@ namespace SeaBattle
         {
             this.pictureBoxPlayerLeftZone = new System.Windows.Forms.PictureBox();
             this.buttonStart = new System.Windows.Forms.Button();
+            this.pictureBoxPlayerRightZone = new System.Windows.Forms.PictureBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPlayerLeftZone)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPlayerRightZone)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBoxPlayerLeftZone
@@ -42,7 +45,8 @@ namespace SeaBattle
             this.pictureBoxPlayerLeftZone.Size = new System.Drawing.Size(417, 377);
             this.pictureBoxPlayerLeftZone.TabIndex = 0;
             this.pictureBoxPlayerLeftZone.TabStop = false;
-            this.pictureBoxPlayerLeftZone.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxPlayerLeftZone_Paint);
+            this.pictureBoxPlayerLeftZone.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxPlayerLeftZone_MouseDown);
+            this.pictureBoxPlayerLeftZone.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBoxPlayerLeftZone_MouseMove);
             // 
             // buttonStart
             // 
@@ -55,17 +59,37 @@ namespace SeaBattle
             this.buttonStart.UseVisualStyleBackColor = true;
             this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
             // 
+            // pictureBoxPlayerRightZone
+            // 
+            this.pictureBoxPlayerRightZone.BackColor = System.Drawing.Color.White;
+            this.pictureBoxPlayerRightZone.Location = new System.Drawing.Point(600, 12);
+            this.pictureBoxPlayerRightZone.Name = "pictureBoxPlayerRightZone";
+            this.pictureBoxPlayerRightZone.Size = new System.Drawing.Size(417, 377);
+            this.pictureBoxPlayerRightZone.TabIndex = 2;
+            this.pictureBoxPlayerRightZone.TabStop = false;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(194, 483);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(125, 27);
+            this.textBox1.TabIndex = 3;
+            // 
             // SeaBattleMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1044, 592);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.pictureBoxPlayerRightZone);
             this.Controls.Add(this.buttonStart);
             this.Controls.Add(this.pictureBoxPlayerLeftZone);
             this.Name = "SeaBattleMainForm";
             this.Text = "SeaBattle";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPlayerLeftZone)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPlayerRightZone)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -73,5 +97,7 @@ namespace SeaBattle
 
         private System.Windows.Forms.PictureBox pictureBoxPlayerLeftZone;
         private System.Windows.Forms.Button buttonStart;
+        private System.Windows.Forms.PictureBox pictureBoxPlayerRightZone;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
